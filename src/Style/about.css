@@ -1,0 +1,49 @@
+.about-container {
+  overflow: auto;
+  width: 80%;
+  color: var(--font);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.title {
+  font-size: 7vmin;
+  color: var(--Prcl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  width: 100%;
+}
+
+.about-container section h4 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  position: relative;
+  padding: 0.5rem 1.5rem;
+  margin: 1rem;
+}
+.about-container section h4::before {
+  content: "";
+  position: absolute;
+  background-color: var(--Prcl);
+  width: 7px;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.about-container section p {
+  line-height: 2.5;
+  text-align: justify;
+  line-break: auto;
+}
+@media (max-width: 700px) {
+  .about-container {
+    width: 90%;
+  }
+  .about-container section p {
+    font-size: 0.9rem;
+    text-align: left;
+  }
+}

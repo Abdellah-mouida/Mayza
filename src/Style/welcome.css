@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins;
+  transition: 0.5s;
+}
+:root {
+  --bk: #fff;
+  --font: #000;
+  --Prcl: #e00f48;
+}
+/* :root {
+  --white: #fff;
+  --black: #000;
+  --Prcl-tr: #e00f4792;
+  --light: #ececec;
+  --dark: #111;
+  --dark-tr: #11111155;
+} */
+body {
+  background-color: var(--bk);
+}
+.d-flex-c {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.d-flex-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.welcome {
+  width: 100%;
+  background-color: var(--bk);
+  display: flex;
+  justify-content: center;
+  padding-top: 1.5rem;
+}
+.welcome img {
+  width: 350px;
+}
+.welcome p {
+  font-size: 1rem;
+  text-align: center;
+  color: var(--font);
+}
+.Link {
+  text-decoration: none;
+}
+.welcome-container {
+  padding: 1rem;
+  gap: 30px;
+}
+.welcome-container h1 {
+  text-align: center;
+  font-size: 10vmin;
+  color: var(--Prcl);
+}
+.welcome-btn {
+  width: 200px;
+  padding: 1rem 2rem;
+  background-color: var(--Prcl);
+  color: var(--bk);
+  position: relative;
+  z-index: 2;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.welcome-btn::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  transition: 0.5s;
+  left: 0;
+  position: absolute;
+  border: solid 1.5px var(--Prcl);
+  z-index: 1;
+  opacity: 0;
+}
+.welcome-btn:hover {
+  transform: translate(-5px, -5px);
+}
+.welcome-btn:hover::after {
+  opacity: 1;
+  transform: translate(5px, 5px);
+}

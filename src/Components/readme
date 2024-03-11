@@ -1,0 +1,1112 @@
+//Try 1 -------------------------------------------------------------------------------------
+
+import { useState } from "react";
+
+export default function GameBox() {
+let [onGame, setOnGame] = useState(false);
+let [arr, setArr] = useState([
+[[""], [""], [""]],
+[[""], [""], [""]],
+[[""], [""], [""]],
+]);
+let [counter, setCounter] = useState(0);
+let [PlayerReturn, setPlayerReturn] = useState(false);
+let [position, setPosition] = useState([]);
+let GameStarted = (i, id) => {
+if (onGame) {
+setArr((p) => [
+[...p[0], (p[i][id] = ["O"])].slice(0, -1),
+[...p[1]],
+[...p[2]],
+]);
+setPlayerReturn(false);
+setCounter((p) => p + 1);
+setPosition([i, id]);
+}
+};
+
+let Restart = () => {
+setArr([
+[[""], [""], [""]],
+[[""], [""], [""]],
+[[""], [""], [""]],
+]);
+setCounter(0);
+setOnGame(false);
+};
+if (!PlayerReturn) {
+if (counter === 2) {
+if (
+(position[0] === 1 && position[1] === 0) ||
+(position[0] === 1 && position[1] === 2) ||
+(position[0] === 2 && position[1] === 0) ||
+(position[0] === 2 && position[1] === 1) ||
+(position[0] === 2 && position[1] === 2)
+) {
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+console.log(counter, PlayerReturn, position, arr);
+} else if (
+(position[0] === 0 && position[1] === 1) ||
+(position[0] === 0 && position[1] === 2)
+) {
+setArr((p) => [...p, (p[2][0] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (position[0] === 1 && position[1] === 1) {
+setArr((p) => [...p, (p[2][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+}
+} else if (counter === 3) {
+if (
+position[0] === 0 &&
+position[1] === 1 &&
+arr[1][0].length !== 0 &&
+arr[2][0].length !== 0
+) {
+setArr((p) => [...p, (p[2][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+console.log(counter, PlayerReturn, position, arr);
+} else if (
+position[0] === 0 &&
+position[1] === 1 &&
+arr[2][1].length !== 0
+) {
+setArr((p) => [...p, (p[1][1] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (
+position[0] === 0 &&
+position[1] === 1 &&
+arr[1][2].length !== 0
+) {
+setArr((p) => [...p, (p[2][0] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+}
+}
+}
+
+return (
+
+<div className="d-flex-col">
+<section
+className="game-box"
+style={{ pointerEvents: PlayerReturn ? "all" : "none" }} >
+{arr.map((m, i) => (
+<div className="row">
+{m.map((x, id) => (
+<div
+onClick={() => {
+GameStarted(i, id);
+}} >
+{" "}
+<p key={id + 55}> {x} </p>
+</div>
+))}
+</div>
+))}{" "}
+</section>
+<button
+className="start"
+onClick={() => {
+setOnGame(true);
+setArr((p) => [
+[...p[0], (p[0][0] = ["X"])].slice(0, -1),
+[...p[1]],
+[...p[2]],
+]);
+setPlayerReturn(true);
+setCounter((p) => p + 1);
+}}
+style={{ display: onGame ? "none" : "block" }} >
+Start playing
+</button>
+<button
+className="start"
+onClick={Restart}
+style={{ display: onGame ? "block" : "none" }} >
+Restart
+</button>
+</div>
+);
+}
+///
+//
+
+//Try 2 -------------------------------------------------------------------------------------
+
+//
+//
+import { useState } from "react";
+
+export default function GameBox() {
+let [onGame, setOnGame] = useState(false);
+let [arr, setArr] = useState([
+[[""], [""], [""]],
+[[""], [""], [""]],
+[[""], [""], [""]],
+]);
+let [counter, setCounter] = useState(0);
+let [PlayerReturn, setPlayerReturn] = useState(false);
+let [position, setPosition] = useState([]);
+let GameStarted = (i, id) => {
+if (onGame) {
+setArr((p) => [
+[...p[0], (p[i][id] = ["O"])].slice(0, -1),
+[...p[1]],
+[...p[2]],
+]);
+setPlayerReturn(false);
+setCounter((p) => p + 1);
+setPosition([i, id]);
+}
+};
+let [case1, setCase1] = useState(false);
+let [case2, setCase2] = useState(false);
+let [case3, setCase3] = useState(false);
+let [case4, setCase4] = useState(false);
+let [case5, setCase5] = useState(false);
+let [case6, setCase6] = useState(false);
+let [case7, setCase7] = useState(false);
+let [case8, setCase8] = useState(false);
+let Restart = () => {
+setArr([
+[[""], [""], [""]],
+[[""], [""], [""]],
+[[""], [""], [""]],
+]);
+setCounter(0);
+setOnGame(false);
+};
+if (!PlayerReturn) {
+//Case 1-------------------------------------------
+if (counter === 2 && position[0] === 1 && position[1] === 0) {
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase1(true);
+} else if (counter === 2 && position[0] === 2 && position[1] === 0) {
+//Case 2 -----------------------------------------------------
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase2(true);
+} else if (counter === 2 && position[0] === 0 && position[1] === 1) {
+//Case 3 -----------------------------------------------------
+setArr((p) => [...p, (p[2][0] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase3(true);
+} else if (counter === 2 && position[0] === 2 && position[1] === 1) {
+//Case 4 -----------------------------------------------------
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase4(true);
+} else if (counter === 2 && position[0] === 0 && position[1] === 2) {
+//Case 5 -----------------------------------------------------
+setArr((p) => [...p, (p[2][0] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase5(true);
+} else if (counter === 2 && position[0] === 1 && position[1] === 2) {
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+//Case 6 -----------------------------------------------------
+setPlayerReturn(true);
+setCase6(true);
+} else if (counter === 2 && position[0] === 2 && position[1] === 2) {
+//Case 7 -----------------------------------------------------
+setArr((p) => [...p, (p[0][1] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase7(true);
+} else if (counter === 2 && position[0] === 1 && position[1] === 1) {
+//Case 8 -----------------------------------------------------
+setArr((p) => [...p, (p[2][2] = ["X"])].slice(0, -1));
+setCase8(true);
+setPlayerReturn(true);
+}
+}
+//Case Sequants
+if (!PlayerReturn) {
+if (case1) {
+if (counter === 3 && position[0] === 0 && position[1] === 1) {
+setArr((p) => [...p, (p[2][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (
+(counter === 3 && position[0] === 1 && position[1] === 1) ||
+(counter === 3 && position[0] === 1 && position[1] === 2) ||
+(counter === 3 && position[0] === 2 && position[1] === 0) ||
+(counter === 3 && position[0] === 2 && position[1] === 1) ||
+(counter === 3 && position[0] === 2 && position[1] === 2)
+) {
+setArr((p) =>
+[...p, (p[0][1] = ["X"])].slice(0, -1)
+); /\*\*<==================== Win \*/
+setPlayerReturn(true);
+}
+} else if (case2) {
+if (counter === 3 && position[0] === 0 && position[1] === 1) {
+setArr((p) => [...p, (p[2][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (
+(counter === 3 && position[0] === 1 && position[1] === 0) ||
+(counter === 3 && position[0] === 1 && position[1] === 1) ||
+(counter === 3 && position[0] === 1 && position[1] === 2) ||
+(counter === 3 && position[0] === 2 && position[1] === 1) ||
+(counter === 3 && position[0] === 2 && position[1] === 2)
+) {
+setArr((p) =>
+[...p, (p[0][1] = ["X"])].slice(0, -1)
+);
+setPlayerReturn(true);
+}
+} else if (case3) {
+if (counter === 3 && position[0] === 1 && position[1] === 0) {
+setArr((p) => [...p, (p[2][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (
+(counter === 3 && position[0] === 1 && position[1] === 1) ||
+(counter === 3 && position[0] === 1 && position[1] === 2) ||
+(counter === 3 && position[0] === 0 && position[1] === 2) ||
+(counter === 3 && position[0] === 2 && position[1] === 1) ||
+(counter === 3 && position[0] === 2 && position[1] === 2)
+) {
+setArr((p) =>
+[...p, (p[1][0] = ["X"])].slice(0, -1)
+);
+setPlayerReturn(true);
+}
+} else if (case4) {
+if (counter === 3 && position[0] === 0 && position[1] === 1) {
+setArr((p) => [...p, (p[1][1] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (
+(counter === 3 && position[0] === 1 && position[1] === 1) ||
+(counter === 3 && position[0] === 1 && position[1] === 2) ||
+(counter === 3 && position[0] === 1 && position[1] === 0) ||
+(counter === 3 && position[0] === 2 && position[1] === 0) ||
+(counter === 3 && position[0] === 2 && position[1] === 2)
+) {
+setArr((p) =>
+[...p, (p[0][1] = ["X"])].slice(0, -1)
+);
+setPlayerReturn(true);
+}
+} else if (case5) {
+if (counter === 3 && position[0] === 1 && position[1] === 0) {
+setArr((p) => [...p, (p[2][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (
+(counter === 3 && position[0] === 1 && position[1] === 1) ||
+(counter === 3 && position[0] === 1 && position[1] === 2) ||
+(counter === 3 && position[0] === 0 && position[1] === 1) ||
+(counter === 3 && position[0] === 2 && position[1] === 1) ||
+(counter === 3 && position[0] === 2 && position[1] === 2)
+) {
+setArr((p) =>
+[...p, (p[1][0] = ["X"])].slice(0, -1)
+);
+setPlayerReturn(true);
+}
+} else if (case6) {
+if (counter === 3 && position[0] === 0 && position[1] === 1) {
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (
+(counter === 3 && position[0] === 1 && position[1] === 0) ||
+(counter === 3 && position[0] === 1 && position[1] === 1) ||
+(counter === 3 && position[0] === 2 && position[1] === 0) ||
+(counter === 3 && position[0] === 2 && position[1] === 1) ||
+(counter === 3 && position[0] === 2 && position[1] === 2)
+) {
+setArr((p) =>
+[...p, (p[0][1] = ["X"])].slice(0, -1)
+);
+setPlayerReturn(true);
+}
+} else if (case7) {
+if (counter === 3 && position[0] === 0 && position[1] === 1) {
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (
+(counter === 3 && position[0] === 1 && position[1] === 1) ||
+(counter === 3 && position[0] === 1 && position[1] === 2) ||
+(counter === 3 && position[0] === 1 && position[1] === 0) ||
+(counter === 3 && position[0] === 2 && position[1] === 0) ||
+(counter === 3 && position[0] === 2 && position[1] === 1)
+) {
+setArr((p) =>
+[...p, (p[0][1] = ["X"])].slice(0, -1)
+);
+setPlayerReturn(true);
+}
+} else if (case8) {
+if (counter === 3 && position[0] === 2 && position[1] === 0) {
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (counter === 3 && position[0] === 0 && position[1] === 2) {
+setArr((p) => [...p, (p[2][0] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (counter === 3 && position[0] === 1 && position[1] === 0) {
+setArr((p) => [...p, (p[1][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (counter === 3 && position[0] === 1 && position[1] === 2) {
+setArr((p) => [...p, (p[1][0] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (counter === 3 && position[0] === 0 && position[1] === 1) {
+setArr((p) => [...p, (p[2][1] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (counter === 3 && position[0] === 2 && position[1] === 1) {
+setArr((p) => [...p, (p[0][1] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+}
+}
+}
+
+return (
+
+<div className="d-flex-col">
+<section
+className="game-box"
+style={{ pointerEvents: PlayerReturn ? "all" : "none" }} >
+{arr.map((m, i) => (
+<div className="row">
+{m.map((x, id) => (
+<div
+onClick={() => {
+GameStarted(i, id);
+}} >
+{" "}
+<p key={id + 55}> {x} </p>
+</div>
+))}
+</div>
+))}{" "}
+</section>
+<button
+className="start"
+onClick={() => {
+setOnGame(true);
+setArr((p) => [
+[...p[0], (p[0][0] = ["X"])].slice(0, -1),
+[...p[1]],
+[...p[2]],
+]);
+setPlayerReturn(true);
+setCounter((p) => p + 1);
+}}
+style={{ display: onGame ? "none" : "block" }} >
+Start playing
+</button>
+<button
+className="start"
+onClick={Restart}
+style={{ display: onGame ? "block" : "none" }} >
+Restart
+</button>
+</div>
+);
+}
+///
+//
+
+//Try 3 -------------------------------------------------------------------------------------
+
+//
+//
+import { useRef, useState } from "react";
+
+export default function GameBox() {
+let [case1, setCase1] = useState(false);
+let [case2, setCase2] = useState(false);
+let [case3, setCase3] = useState(false);
+let [case4, setCase4] = useState(false);
+let [case5, setCase5] = useState(false);
+let [case6, setCase6] = useState(false);
+let [case7, setCase7] = useState(false);
+let [case8, setCase8] = useState(false);
+let [onGame, setOnGame] = useState(false);
+let resRef = useRef(null);
+let starRef = useRef(null);
+let [arr, setArr] = useState([
+[[""], [""], [""]],
+[[""], [""], [""]],
+[[""], [""], [""]],
+]);
+let [counter, setCounter] = useState(0);
+let [PlayerReturn, setPlayerReturn] = useState(false);
+let [position, setPosition] = useState([]);
+let GameStarted = (i, id) => {
+if (onGame) {
+setArr((p) => [
+[...p[0], (p[i][id] = ["O"])].slice(0, -1),
+[...p[1]],
+[...p[2]],
+]);
+setPlayerReturn(false);
+setCounter((p) => p + 1);
+setPosition([i, id]);
+}
+};
+
+let Restart = () => {
+setArr([
+[[""], [""], [""]],
+[[""], [""], [""]],
+[[""], [""], [""]],
+]);
+setCounter(0);
+setOnGame(false);
+setCase1(false);
+setCase2(false);
+setCase3(false);
+setCase4(false);
+setCase5(false);
+setCase6(false);
+setCase7(false);
+setCase8(false);
+};
+if (!PlayerReturn && counter === 2) {
+//Case 1-------------------------------------------
+if (position[0] === 1 && position[1] === 0) {
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase1(true);
+} else if (position[0] === 2 && position[1] === 0) {
+//Case 2 -----------------------------------------------------
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase2(true);
+} else if (position[0] === 0 && position[1] === 1) {
+//Case 3 -----------------------------------------------------
+setArr((p) => [...p, (p[2][0] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase3(true);
+} else if (position[0] === 2 && position[1] === 1) {
+//Case 4 -----------------------------------------------------
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase4(true);
+} else if (position[0] === 0 && position[1] === 2) {
+//Case 5 -----------------------------------------------------
+setArr((p) => [...p, (p[2][0] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase5(true);
+} else if (position[0] === 1 && position[1] === 2) {
+//Case 6 -----------------------------------------------------
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase6(true);
+} else if (position[0] === 2 && position[1] === 2) {
+//Case 7 -----------------------------------------------------
+setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+setCase7(true);
+} else if (position[0] === 1 && position[1] === 1) {
+//Case 8 -----------------------------------------------------
+setArr((p) => [...p, (p[2][2] = ["X"])].slice(0, -1));
+setCase8(true);
+setPlayerReturn(true);
+}
+}
+if (!PlayerReturn && counter === 3) {
+if (case1) {
+if (position[0] === 0 && position[1] === 1) {
+setArr((p) => [...p, (p[2][2] = ["X"])].slice(0, -1));
+setPlayerReturn(true);
+} else if (
+(position[0] === 1 && position[1] === 1) ||
+(position[0] === 1 && position[1] === 2) ||
+(position[0] === 2 && position[1] === 0) ||
+(position[0] === 2 && position[1] === 1) ||
+(position[0] === 2 && position[1] === 2)
+) {
+setArr((p) => [...p, (p[0][1] = ["X"])].slice(0, -1));
+
+        setPlayerReturn(true);
+      }
+    } else if (case2) {
+      if (position[0] === 0 && position[1] === 1) {
+        setArr((p) => [...p, (p[2][2] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (
+        (position[0] === 1 && position[1] === 0) ||
+        (position[0] === 1 && position[1] === 1) ||
+        (position[0] === 1 && position[1] === 2) ||
+        (position[0] === 2 && position[1] === 1) ||
+        (position[0] === 2 && position[1] === 2)
+      ) {
+        setArr((p) => [...p, (p[0][1] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    } else if (case3) {
+      if (position[0] === 1 && position[1] === 0) {
+        setArr((p) => [...p, (p[2][2] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (
+        (position[0] === 1 && position[1] === 1) ||
+        (position[0] === 1 && position[1] === 2) ||
+        (position[0] === 0 && position[1] === 2) ||
+        (position[0] === 2 && position[1] === 1) ||
+        (position[0] === 2 && position[1] === 2)
+      ) {
+        setArr((p) => [...p, (p[1][0] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    } else if (case4) {
+      if (position[0] === 0 && position[1] === 1) {
+        setArr((p) => [...p, (p[1][1] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (
+        (position[0] === 1 && position[1] === 1) ||
+        (position[0] === 1 && position[1] === 2) ||
+        (position[0] === 1 && position[1] === 0) ||
+        (position[0] === 2 && position[1] === 0) ||
+        (position[0] === 2 && position[1] === 2)
+      ) {
+        setArr((p) => [...p, (p[0][1] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    } else if (case5) {
+      if (position[0] === 1 && position[1] === 0) {
+        setArr((p) => [...p, (p[2][2] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (
+        (position[0] === 1 && position[1] === 1) ||
+        (position[0] === 1 && position[1] === 2) ||
+        (position[0] === 0 && position[1] === 1) ||
+        (position[0] === 2 && position[1] === 1) ||
+        (position[0] === 2 && position[1] === 2)
+      ) {
+        setArr((p) => [...p, (p[1][0] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    } else if (case6) {
+      if (position[0] === 0 && position[1] === 1) {
+        setArr((p) => [...p, (p[2][0] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (
+        (position[0] === 1 && position[1] === 0) ||
+        (position[0] === 1 && position[1] === 1) ||
+        (position[0] === 2 && position[1] === 0) ||
+        (position[0] === 2 && position[1] === 1) ||
+        (position[0] === 2 && position[1] === 2)
+      ) {
+        setArr((p) => [...p, (p[0][1] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    } else if (case7) {
+      if (position[0] === 0 && position[1] === 1) {
+        setArr((p) => [...p, (p[2][0] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (
+        (position[0] === 1 && position[1] === 1) ||
+        (position[0] === 1 && position[1] === 2) ||
+        (position[0] === 1 && position[1] === 0) ||
+        (position[0] === 2 && position[1] === 0) ||
+        (position[0] === 2 && position[1] === 1)
+      ) {
+        setArr((p) => [...p, (p[0][1] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    } else if (case8) {
+      if (position[0] === 2 && position[1] === 0) {
+        setArr((p) => [...p, (p[0][2] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (position[0] === 0 && position[1] === 2) {
+        setArr((p) => [...p, (p[2][0] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (position[0] === 1 && position[1] === 0) {
+        setArr((p) => [...p, (p[1][2] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (position[0] === 1 && position[1] === 2) {
+        setArr((p) => [...p, (p[1][0] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (position[0] === 0 && position[1] === 1) {
+        setArr((p) => [...p, (p[2][1] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (position[0] === 2 && position[1] === 1) {
+        setArr((p) => [...p, (p[0][1] = ["X"])].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    }
+
+}
+
+window.addEventListener("keydown", (e) => {
+if (e.key === "Enter") {
+if (starRef?.current?.style?.display === "block")
+starRef?.current?.click();
+if (resRef?.current?.style?.display === "block") resRef?.current?.click();
+}
+});
+return (
+
+<div className="d-flex-col">
+<section
+className="game-box"
+style={{ pointerEvents: PlayerReturn ? "all" : "none" }} >
+{arr.map((m, i) => (
+<div className="row">
+{m.map((x, id) => (
+<div
+onClick={() => {
+GameStarted(i, id);
+}} >
+{" "}
+<p key={id + 55}> {x} </p>
+</div>
+))}
+</div>
+))}{" "}
+</section>
+<button
+className="start"
+onClick={() => {
+setOnGame(true);
+setArr((p) => [
+[...p[0], (p[0][0] = ["X"])].slice(0, -1),
+[...p[1]],
+[...p[2]],
+]);
+setPlayerReturn(true);
+setCounter((p) => p + 1);
+}}
+style={{ display: onGame ? "none" : "block" }}
+ref={starRef} >
+Start playing
+</button>
+<button
+className="start"
+onClick={Restart}
+style={{ display: onGame ? "block" : "none" }}
+ref={resRef} >
+Restart
+</button>
+</div>
+);
+}
+///
+//
+
+//Try 4 -------------------------------------------------------------------------------------
+
+//
+//
+import { useRef, useState } from "react";
+
+export default function GameBox() {
+let [case1, setCase1] = useState(false);
+let [case2, setCase2] = useState(false);
+let [case3, setCase3] = useState(false);
+let [case4, setCase4] = useState(false);
+let [case5, setCase5] = useState(false);
+let [case6, setCase6] = useState(false);
+let [case7, setCase7] = useState(false);
+let [case8, setCase8] = useState(false);
+let [case8_case1, setCase8_case1] = useState(false);
+let [case8_case2, setCase8_case2] = useState(false);
+let [case8_case3, setCase8_case3] = useState(false);
+let [case8_case4, setCase8_case4] = useState(false);
+let [case8_case5, setCase8_case5] = useState(false);
+let [case8_case6, setCase8_case6] = useState(false);
+
+let [onGame, setOnGame] = useState(false);
+let resRef = useRef(null);
+let starRef = useRef(null);
+let [stat, setStat] = useState("");
+let [arr, setArr] = useState([
+["", "", ""],
+["", "", ""],
+["", "", ""],
+]);
+let [counter, setCounter] = useState(0);
+let [PlayerReturn, setPlayerReturn] = useState(false);
+let [position, setPosition] = useState([]);
+let GameStarted = (i, id) => {
+if (onGame && arr[i][id] !== "X" && arr[i][id] !== "O") {
+setArr((p) => [
+[...p[0], (p[i][id] = "O")].slice(0, -1),
+[...p[1]],
+[...p[2]],
+]);
+setPlayerReturn(false);
+setCounter((p) => p + 1);
+setPosition([i, id]);
+}
+};
+
+let Restart = () => {
+setArr([
+["", "", ""],
+["", "", ""],
+["", "", ""],
+]);
+setCounter(0);
+setOnGame(false);
+setCase1(false);
+setCase2(false);
+setCase3(false);
+setCase4(false);
+setCase5(false);
+setCase6(false);
+setCase7(false);
+setCase8(false);
+setPlayerReturn(false);
+setCase8_case1(false);
+setCase8_case2(false);
+setCase8_case3(false);
+setCase8_case4(false);
+setCase8_case5(false);
+setCase8_case6(false);
+};
+if (!PlayerReturn && counter === 2) {
+//Case 1-------------------------------------------
+if (position[0] === 1 && position[1] === 0) {
+setArr((p) => [...p, (p[0][2] = "X")].slice(0, -1));
+setPlayerReturn(true);
+setCase1(true);
+} else if (position[0] === 2 && position[1] === 0) {
+//Case 2 -----------------------------------------------------
+setArr((p) => [...p, (p[0][2] = "X")].slice(0, -1));
+setPlayerReturn(true);
+setCase2(true);
+} else if (position[0] === 0 && position[1] === 1) {
+//Case 3 -----------------------------------------------------
+setArr((p) => [...p, (p[2][0] = "X")].slice(0, -1));
+setPlayerReturn(true);
+setCase3(true);
+} else if (position[0] === 2 && position[1] === 1) {
+//Case 4 -----------------------------------------------------
+setArr((p) => [...p, (p[0][2] = "X")].slice(0, -1));
+setPlayerReturn(true);
+setCase4(true);
+} else if (position[0] === 0 && position[1] === 2) {
+//Case 5 -----------------------------------------------------
+setArr((p) => [...p, (p[2][0] = "X")].slice(0, -1));
+setPlayerReturn(true);
+setCase5(true);
+} else if (position[0] === 1 && position[1] === 2) {
+//Case 6 -----------------------------------------------------
+setArr((p) => [...p, (p[0][2] = "X")].slice(0, -1));
+setPlayerReturn(true);
+setCase6(true);
+} else if (position[0] === 2 && position[1] === 2) {
+//Case 7 -----------------------------------------------------
+setArr((p) => [...p, (p[0][2] = "X")].slice(0, -1));
+setPlayerReturn(true);
+setCase7(true);
+} else if (position[0] === 1 && position[1] === 1) {
+//Case 8 -----------------------------------------------------
+setArr((p) => [...p, (p[2][2] = "X")].slice(0, -1));
+setCase8(true);
+setPlayerReturn(true);
+}
+}
+if (!PlayerReturn && counter === 3) {
+if (case1) {
+if (position[0] === 0 && position[1] === 1) {
+setArr((p) => [...p, (p[2][2] = "X")].slice(0, -1));
+setPlayerReturn(true);
+} else if (
+(position[0] === 1 && position[1] === 1) ||
+(position[0] === 1 && position[1] === 2) ||
+(position[0] === 2 && position[1] === 0) ||
+(position[0] === 2 && position[1] === 1) ||
+(position[0] === 2 && position[1] === 2)
+) {
+setArr((p) => [...p, (p[0][1] = "X")].slice(0, -1));
+
+        setPlayerReturn(true);
+      }
+    } else if (case2) {
+      if (position[0] === 0 && position[1] === 1) {
+        setArr((p) => [...p, (p[2][2] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (
+        (position[0] === 1 && position[1] === 0) ||
+        (position[0] === 1 && position[1] === 1) ||
+        (position[0] === 1 && position[1] === 2) ||
+        (position[0] === 2 && position[1] === 1) ||
+        (position[0] === 2 && position[1] === 2)
+      ) {
+        setArr((p) => [...p, (p[0][1] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    } else if (case3) {
+      if (position[0] === 1 && position[1] === 0) {
+        setArr((p) => [...p, (p[2][2] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (
+        (position[0] === 1 && position[1] === 1) ||
+        (position[0] === 1 && position[1] === 2) ||
+        (position[0] === 0 && position[1] === 2) ||
+        (position[0] === 2 && position[1] === 1) ||
+        (position[0] === 2 && position[1] === 2)
+      ) {
+        setArr((p) => [...p, (p[1][0] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    } else if (case4) {
+      if (position[0] === 0 && position[1] === 1) {
+        setArr((p) => [...p, (p[1][1] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (
+        (position[0] === 1 && position[1] === 1) ||
+        (position[0] === 1 && position[1] === 2) ||
+        (position[0] === 1 && position[1] === 0) ||
+        (position[0] === 2 && position[1] === 0) ||
+        (position[0] === 2 && position[1] === 2)
+      ) {
+        setArr((p) => [...p, (p[0][1] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    } else if (case5) {
+      if (position[0] === 1 && position[1] === 0) {
+        setArr((p) => [...p, (p[2][2] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (
+        (position[0] === 1 && position[1] === 1) ||
+        (position[0] === 1 && position[1] === 2) ||
+        (position[0] === 0 && position[1] === 1) ||
+        (position[0] === 2 && position[1] === 1) ||
+        (position[0] === 2 && position[1] === 2)
+      ) {
+        setArr((p) => [...p, (p[1][0] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    } else if (case6) {
+      if (position[0] === 0 && position[1] === 1) {
+        setArr((p) => [...p, (p[2][0] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (
+        (position[0] === 1 && position[1] === 0) ||
+        (position[0] === 1 && position[1] === 1) ||
+        (position[0] === 2 && position[1] === 0) ||
+        (position[0] === 2 && position[1] === 1) ||
+        (position[0] === 2 && position[1] === 2)
+      ) {
+        setArr((p) => [...p, (p[0][1] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    } else if (case7) {
+      if (position[0] === 0 && position[1] === 1) {
+        setArr((p) => [...p, (p[2][0] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+      } else if (
+        (position[0] === 1 && position[1] === 1) ||
+        (position[0] === 1 && position[1] === 2) ||
+        (position[0] === 1 && position[1] === 0) ||
+        (position[0] === 2 && position[1] === 0) ||
+        (position[0] === 2 && position[1] === 1)
+      ) {
+        setArr((p) => [...p, (p[0][1] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+      }
+    } else if (case8) {
+      if (position[0] === 2 && position[1] === 0) {
+        setArr((p) => [...p, (p[0][2] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+        setCase8_case1(true);
+      } else if (position[0] === 0 && position[1] === 2) {
+        setArr((p) => [...p, (p[2][0] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+        setCase8_case2(true);
+      } else if (position[0] === 1 && position[1] === 0) {
+        setArr((p) => [...p, (p[1][2] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+        setCase8_case3(true);
+      } else if (position[0] === 1 && position[1] === 2) {
+        setArr((p) => [...p, (p[1][0] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+        setCase8_case4(true);
+      } else if (position[0] === 0 && position[1] === 1) {
+        setArr((p) => [...p, (p[2][1] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+        setCase8_case5(true);
+      } else if (position[0] === 2 && position[1] === 1) {
+        setArr((p) => [...p, (p[0][1] = "X")].slice(0, -1));
+        setPlayerReturn(true);
+        setCase8_case6(true);
+      }
+    }
+
+}
+if (!PlayerReturn && counter === 4) {
+if (case1) {
+if (position[0] === 1 && position[1] === 1) {
+arr[1][2] = "X";
+} else if (position[0] === 1 && position[1] === 2) {
+arr[1][1] = "X";
+} else {
+arr[1][1] = "X";
+}
+} else if (case2) {
+if (position[0] === 1 && position[1] === 1) {
+arr[1][2] = "X";
+} else if (position[0] === 1 && position[1] === 2) {
+arr[1][1] = "X";
+} else {
+arr[1][1] = "X";
+}
+} else if (case3) {
+if (position[0] === 1 && position[1] === 1) {
+arr[2][1] = "X";
+} else if (position[0] === 2 && position[1] === 1) {
+arr[1][1] = "X";
+} else {
+arr[1][1] = "X";
+}
+} else if (case4) {
+if (position[0] === 2 && position[1] === 0) {
+arr[2][2] = "X";
+} else if (position[0] === 2 && position[1] === 2) {
+arr[2][0] = "X";
+} else {
+arr[2][0] = "X";
+}
+} else if (case5) {
+if (position[0] === 1 && position[1] === 1) {
+arr[2][1] = "X";
+} else if (position[0] === 2 && position[1] === 1) {
+arr[1][1] = "X";
+} else {
+arr[1][1] = "X";
+}
+} else if (case6) {
+if (position[0] === 1 && position[1] === 1) {
+arr[1][0] = "X";
+} else if (position[0] === 1 && position[1] === 0) {
+arr[1][1] = "X";
+} else {
+arr[1][1] = "X";
+}
+} else if (case7) {
+if (position[0] === 1 && position[1] === 1) {
+arr[1][0] = "X";
+} else if (position[0] === 1 && position[1] === 0) {
+arr[1][1] = "X";
+} else {
+arr[1][1] = "X";
+}
+} else if (case8) {
+if (case8_case1) {
+if (position[0] === 1 && position[1] === 2) {
+arr[0][1] = "X";
+} else if (position[0] === 0 && position[1] === 1) {
+arr[1][2] = "X";
+} else {
+arr[1][2] = "X";
+}
+} else if (case8_case2) {
+if (position[0] === 1 && position[1] === 0) {
+arr[2][1] = "X";
+} else if (position[0] === 2 && position[1] === 1) {
+arr[1][0] = "X";
+} else {
+arr[1][0] = "X";
+}
+} else if (case8_case3) {
+if (position[0] === 0 && position[1] === 2) {
+arr[2][0] = "X";
+} else {
+arr[0][2] = "X";
+}
+} else if (case8_case4) {
+if (position[0] === 2 && position[1] === 0) {
+arr[0][2] = "X";
+} else {
+arr[2][0] = "X";
+}
+} else if (case8_case5) {
+if (position[0] === 2 && position[1] === 0) {
+arr[0][2] = "X";
+} else {
+arr[2][0] = "X";
+}
+} else if (case8_case6) {
+if (position[0] === 0 && position[1] === 2) {
+arr[2][0] = "X";
+} else {
+arr[0][2] = "X";
+}
+}
+}
+}
+if (!PlayerReturn && counter === 5) {
+if (case8) {
+if (case8_case3) {
+if (position[0] === 1 && position[1] === 2) {
+arr[1][0] = "X"; //==> Daw
+} else {
+arr[1][2] = "X";
+}
+} else if (case8_case4) {
+if (position[0] === 0 && position[1] === 1) {
+arr[2][1] = "X"; //=> Daw
+} else {
+arr[0][1] = "X";
+}
+} else if (case8_case5) {
+if (position[0] === 1 && position[1] === 2) {
+arr[1][0] = "X"; //=> Daw
+} else {
+arr[1][2] = "X";
+}
+} else if (case8_case6) {
+if (position[0] === 1 && position[1] === 0) {
+arr[1][2] = "X"; //=> Daw
+} else {
+arr[1][0] = "X";
+}
+}
+}
+}
+window.addEventListener("keydown", (e) => {
+if (e.key === "Enter") {
+if (starRef?.current?.style?.display === "block")
+starRef?.current?.click();
+if (resRef?.current?.style?.display === "block") resRef?.current?.click();
+}
+});
+
+return (
+
+<div className="d-flex-col">
+<section
+className="game-box"
+style={{ pointerEvents: PlayerReturn ? "all" : "none" }} >
+{arr.map((m, i) => (
+<div className="row" key={i}>
+{m.map((x, id) => (
+<div
+key={id}
+onClick={() => {
+GameStarted(i, id);
+}} >
+{" "}
+<p key={id + i}> {x} </p>
+</div>
+))}
+</div>
+))}{" "}
+</section>
+<button
+className="start"
+onClick={() => {
+setOnGame(true);
+setArr((p) => [
+[...p[0], (p[0][0] = "X")].slice(0, -1),
+[...p[1]],
+[...p[2]],
+]);
+setPlayerReturn(true);
+setCounter((p) => p + 1);
+}}
+style={{ display: onGame ? "none" : "block" }}
+ref={starRef} >
+Start playing
+</button>
+<button
+className="start"
+onClick={Restart}
+style={{ display: onGame ? "block" : "none" }}
+ref={resRef} >
+Restart
+</button>
+</div>
+);
+}
